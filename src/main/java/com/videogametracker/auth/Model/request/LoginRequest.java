@@ -1,6 +1,5 @@
-package com.videogametracker.auth.Model.response;
+package com.videogametracker.auth.Model.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterResponse {
-    private String userId;
+public class LoginRequest {
+    private String username;
+    private String password;
 
-    //kafka related
-    @JsonIgnore
+    // kafka related
     private String correlationId;
 }
+
+
