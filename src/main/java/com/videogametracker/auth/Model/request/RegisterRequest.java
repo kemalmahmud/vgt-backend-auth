@@ -15,4 +15,7 @@ public class RegisterRequest {
     private String name;
     private String email;
     private String description;
+
+    //kafka related
+    private String correlationId;
 }

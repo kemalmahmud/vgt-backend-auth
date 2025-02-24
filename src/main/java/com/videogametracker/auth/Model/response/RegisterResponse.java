@@ -11,4 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RegisterResponse {
     private String userId;
+
+    //kafka related
+    private String correlationId;
 }
