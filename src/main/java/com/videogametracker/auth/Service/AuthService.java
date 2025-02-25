@@ -2,6 +2,7 @@ package com.videogametracker.auth.Service;
 
 import com.videogametracker.auth.Config.JwtConfig;
 import com.videogametracker.auth.Model.request.LoginRequest;
+import com.videogametracker.auth.Model.request.RegisterRequest;
 import com.videogametracker.auth.Model.response.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class AuthService {
     public ResponseEntity<BaseResponse> login(LoginRequest request) {
         BaseResponse result = new BaseResponse();
         try {
-            var user = userService.getUserByUsername(request);
-            if (user.getErrorMessage() != null) throw new RuntimeException("Invalid credentials");
+            var user = userService.getUserAuth(request.getUsername());
+            if (user.getErrorMessage() != null && !user.getErrorMessage().equals("")) throw new RuntimeException("Invalid credentials");
                 if (user.getUserId() != null && passwordEncoder.matches(request.getPassword(), user.getPassword())) {
                     user.setToken(jwtConfig.generateToken(request.getUsername()));
                     result.setData(user);
@@ -36,11 +37,20 @@ public class AuthService {
             throw new RuntimeException("Invalid credentials");
         }
         catch(Exception e) {
-            log.error("Error when register new user : " + e.getMessage());
+            log.error("Error login : " + e.getMessage());
             result.setData(null);
             result.setMessage("Login failed");
             result.setStatus(HttpStatus.BAD_REQUEST.value());
             return ResponseEntity.badRequest().body(result);
         }
+    }
+
+    public ResponseEntity<BaseResponse> registerUser(RegisterRequest request) {
+        var registerResponse = userService.getUserRegisterInfo(request);
+        BaseResponse result = new BaseResponse();
+        result.setData(registerResponse);
+        result.setMessage("Registration success");
+        result.setStatus(HttpStatus.OK.value());
+        return ResponseEntity.ok(result);
     }
 }

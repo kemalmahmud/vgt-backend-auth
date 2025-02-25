@@ -18,8 +18,8 @@ public class LoginResponse {
     private String errorMessage;
     private String token;
 
-    // kafka related
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String correlationId;
+//    // kafka related
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    private String correlationId;
 }
 

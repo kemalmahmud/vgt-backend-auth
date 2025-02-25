@@ -18,13 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @Autowired
-    private UserService userService;
-    @Autowired
     private AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<BaseResponse> registerNewUser(@RequestBody RegisterRequest request) {
-        return userService.registerUser(request);
+        return authService.registerUser(request);
     }
 
     @PostMapping("/login")
