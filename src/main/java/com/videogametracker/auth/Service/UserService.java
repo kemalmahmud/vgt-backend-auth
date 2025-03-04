@@ -35,7 +35,7 @@ public class UserService {
                 .setEmail(request.getEmail())
                 .setPassword(request.getPassword())
                 .setFullname(request.getName())
-                .setDescription(request.getDescription())
+                .setDescription(request.getDescription() == null ? "" : request.getDescription())
                 .build();
         UserRegisterResponseGrpc resp = syncClient.registerUserGrpc(req);
         return RegisterResponse.builder()

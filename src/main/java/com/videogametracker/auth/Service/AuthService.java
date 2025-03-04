@@ -28,7 +28,7 @@ public class AuthService {
             var user = userService.getUserAuth(request.getUsername());
             if (user.getErrorMessage() != null && !user.getErrorMessage().equals("")) throw new RuntimeException("Invalid credentials");
                 if (user.getUserId() != null && passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                    user.setToken(jwtConfig.generateToken(request.getUsername()));
+                    user.setToken(jwtConfig.generateToken(user.getUserId(), request.getUsername()));
                     result.setData(user);
                     result.setMessage("Login success");
                     result.setStatus(HttpStatus.OK.value());

@@ -14,7 +14,7 @@ public class LoginRequest {
     private String password;
 
     // kafka related
-    private String correlationId;
+//    private String correlationId;
 }
 
 
